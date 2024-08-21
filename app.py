@@ -8,10 +8,12 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from models.customer import Customer
 from models.product import Product
 from models.order import Order
+from models.employee import Employee
 
 from routes.customerBP import customer_blueprint
 from routes.productBP import product_blueprint
 from routes.orderBP import order_blueprint
+from routes.employeeBP import employee_blueprint
 
 #SWAGGER
 SWAGGER_URL = '/api/docs' # URL endpoint for Swagger API documentation
@@ -36,6 +38,8 @@ def blueprint_config(app):
     app.register_blueprint(customer_blueprint, url_prefix='/customers')
     app.register_blueprint(product_blueprint, url_prefix='/products')
     app.register_blueprint(order_blueprint, url_prefix='/orders')
+      app.register_blueprint(employee_blueprint, url_prefix='/employees')
+    
     app.register_blueprint(swagger_blueprint, url_prefix=SWAGGER_URL)
 
 # def rate_limit_config():

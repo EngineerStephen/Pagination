@@ -44,3 +44,6 @@ def find_by_customer_email(email):
 def find_all_paginate(page, per_page):
     orders = db.paginate(select(Order), page = page, per_page = per_page)
     return orders
+
+
+
