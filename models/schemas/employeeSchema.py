@@ -17,8 +17,8 @@ class EmployeeSchema(ma.Schema):
         fields = ("id", "name", "email", "phone", "username", "password", "role_id")
 
 
-customer_schema = CustomerSchema()
-customers_schema = CustomerSchema(many=True, exclude=["password"])
+employee_schema = EmployeeSchema()
+employee_schema = EmployeeSchema()(many=True, exclude=["password"])
 
 class EmployeeProductSchema(ma.Schema):
     name = fields.String(required=True)

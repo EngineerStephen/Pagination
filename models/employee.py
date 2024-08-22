@@ -4,7 +4,7 @@ from typing import List
 from models.role import Role
 
 class Employee(Base):
-    __tablename__ = 'Customers'
+    __tablename__ = 'Employees'
     employee_id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(db.String(255), nullable=False)
     email: Mapped[str] = mapped_column(db.String(255), unique=True, nullable=False)
@@ -13,4 +13,4 @@ class Employee(Base):
     password: Mapped[str] = mapped_column(db.String(255), nullable=False)
     
     role: Mapped["Role"] = db.relationship("Role")
-    : Mapped[List["Product"]] = db.relationship(back_populates="employee")
+    productions: Mapped[List["production"]] = db.relationship(back_populates="employee")
