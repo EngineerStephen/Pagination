@@ -4,6 +4,9 @@ from marshmallow import ValidationError
 from services import orderService
 from utils.util import user_token_wrapper
 
+
+@cache.cached(timeout=60)
+@role_required
 def save():
     try:
         order_data = order_schema.load(request.json)

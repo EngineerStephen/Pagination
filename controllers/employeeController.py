@@ -16,7 +16,10 @@ def login():
         return jsonify(token), 200
     else:
         return jsonify({'messages':'Invalid username or password'}), 401
-
+    
+    
+@cache.cached(timeout=60)
+@role_required
 def save(): #name the controller will always be the same as the service function
 
     try:

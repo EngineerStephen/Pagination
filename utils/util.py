@@ -78,3 +78,27 @@ def admin_required(func): #Finds func based on what function the wrapper is sitt
         else:
             return jsonify({"message":"Token Authorization Required"}), 401
     return wrapper
+
+
+
+
+def role_required(func): #Finds func based on what function the wrapper is sitting on
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        token = None
+        if 'Authorization' in request.headers:
+            try:
+                token = request.headers['Authorization'].split()[1]
+                payload = jwt.decode(token, SECRET_KEY, algorithms='HS256')
+                print("Payload:", payload)
+            except jwt.ExpiredSignatureError:
+                return jsonify({"messages":"Token has expired"}),401
+            except jwt.InvalidTokenError:
+                return jsonify({"messages":"Invalid Token"}),401
+            if payload['role'] == 'Admin':
+                return func(*args, **kwargs) #Executing the function we are wrapping if, the token is validated
+            else:
+                return jsonify({"messages":" Sorry, your role is required"}), 401
+        else:
+            return jsonify({"message":"Token Authorization Required"}), 401
+    return wrapper

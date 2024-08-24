@@ -3,6 +3,9 @@ from models.schemas.productionSchema import production_schema, productions_schem
 from marshmallow import ValidationError
 from services import productionService
 
+
+@cache.cached(timeout=60)
+@role_required
 def save():
     try:
         production_data = production_schema.load(request.json)

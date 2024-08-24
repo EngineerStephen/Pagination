@@ -3,6 +3,9 @@ from models.schemas.productSchema import product_schema, products_schema,
 from marshmallow import ValidationError
 from services import productService
 
+
+@cache.cached(timeout=60)
+@role_required
 def save():
     try:
         product_data = product_schema.load(request.json)
